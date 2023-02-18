@@ -20,37 +20,39 @@ class _introState extends State<intro> {
         'QR_GENARATE & SCAN',
         style: TextStyle(fontSize: 20, color: Colors.white),
       )),
-      body: Column(
-        children: [
-          Lottie.asset('assete/94946-qr-scanner.json'),
-          Container(
-            height: 50,
-            width: 300,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()));
-              },
-              child: Text('QR_Genarate'),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Lottie.asset('assete/94946-qr-scanner.json'),
+            Container(
+              height: 50,
+              width: 300,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()));
+                },
+                child: Text('QR_Genarate'),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+              ),
             ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Container(
-            height: 50,
-            width: 300,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyCustomWidget()));
-              },
-              child: Text('QR_Scan'),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+            SizedBox(
+              height: 30,
             ),
-          )
-        ],
+            Container(
+              height: 50,
+              width: 300,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyCustomWidget()));
+                },
+                child: Text('QR_Scan'),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

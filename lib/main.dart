@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_gen_scan/intro.dart';
 import 'package:qr_gen_scan/scan.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp
+  ]).then(
+    (value) {
+      runApp(const MyApp());
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -44,58 +55,59 @@ class _MyHomePageState extends State<MyHomePage> {
         'Make_QR',
         style: TextStyle(fontSize: 30),
       )),
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
-              child: QrImage(
-                data: d,
-                backgroundColor: Colors.white,
-                version: QrVersions.auto,
-                size: 250,
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: c,
-                decoration: InputDecoration(
-                  hintText: "Type your data...",
-                  filled: true,
+      body: SingleChildScrollView(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: QrImage(
+                  data: d,
+                  backgroundColor: Colors.white,
+                  version: QrVersions.auto,
+                  size: 250,
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: (() {
-                        setState(() {
-                          if (c.text.isEmpty) {
-                            d = "";
-                          } else {
-                            d = c.text;
-                          }
-                        });
-                      }),
-                      child: Text('Tap to Genatare'),
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black),
-                    ),
-                  ),
-                ],
+              SizedBox(
+                height: 20,
               ),
-            )
-          ]),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: c,
+                  decoration: InputDecoration(
+                    hintText: "Type your data...",
+                    filled: true,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: (() {
+                            setState(() {
+                              if (c.text.isEmpty) {
+                                d = "";
+                              } else {
+                                d = c.text;
+                              }
+                            });
+                          }),
+                          child: Text('Tap to Genatare'),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black),
+                        ),
+                      ),
+                    ],
+                  ))
+            ]),
+      ),
     );
   }
 }
